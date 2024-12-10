@@ -1,8 +1,14 @@
-import React, { useEffect , useState } from "react";
+import React, { useEffect, useContext, useState  } from "react";
 import { HashLoader } from 'react-spinners'
+import ProductContext from "../context/ProductContext";
 
-const Home = ({products,setProducts}) => {
-  const [loading , setLoading] = useState(true)
+
+const Home = () => {
+
+  const [loading,setLoading] = useState(true)
+
+  const {products,setProducts,addToCart} = useContext(ProductContext)
+  
   useEffect(() => {
     getProduct();
   }, []);
@@ -41,7 +47,7 @@ const Home = ({products,setProducts}) => {
                 </p>
                 <div className="flex justify-between items-center">
                   <p className="font-semibold py-2">{product.price}</p>
-                  <button className="bg-green-500  px-3 rounded ">Buy</button>
+                  <button onClick={()=>addToCart(product)} className="bg-green-500  px-3 rounded ">Add to cart</button>
                 </div>
               </div>
             </div>

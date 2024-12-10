@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState,useContext } from 'react'
 import {Link} from 'react-router-dom'
+import ProductContext from '../context/ProductContext'
 
-const Navbar = ({setProducts}) => {
+const Navbar = () => {
   const [searchValue,setSearchValue] = useState('')
+  const {products,setProducts,cart} = useContext(ProductContext)
 
   const searchProduct = async ()=>{
     const response = await fetch(`https://dummyjson.com/products/search?q=${searchValue}`)
@@ -22,7 +24,7 @@ const Navbar = ({setProducts}) => {
             </div>
             <ul className='font-semibold flex gap-5'>
                 <Link to='/'>Home</Link>
-                <Link to='/cart'>Cart</Link>
+                <Link to='/cart'>Cart {!cart?"":cart.length}</Link>
             </ul>
         </nav>
     </>
