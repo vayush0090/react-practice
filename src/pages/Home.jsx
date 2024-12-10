@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect , useState } from "react";
+import { HashLoader } from 'react-spinners'
 
-const Home = () => {
-  const [products, setProducts] = useState([]);
+const Home = ({products,setProducts}) => {
+  const [loading , setLoading] = useState(true)
   useEffect(() => {
     getProduct();
   }, []);
@@ -10,15 +11,22 @@ const Home = () => {
     const response = await fetch("https://dummyjson.com/products");
     const data = await response.json();
     // console.log(data.products);
-
     setProducts(data.products);
     console.log(products);
+    setLoading(false)
   };
 
   return (
     <>
       <div className="grid grid-cols-3 justify-center items-center gap-10 w-[70vw] m-auto mb-7 ">
-        {products.map((product,id) => {
+      
+        {loading?
+
+        <div className="w-[70vw] h-[80vh]  flex justify-center items-center">
+          <HashLoader color="#30c8db" />
+        </div>
+        :
+        products.map((product,id) => {
           return (
             <div key={id} className="w-[250px] bg-gray-300 shadow-xl hover:shadow-blue-500 hover:shadow-lg transition-all ease-linear rounded-md  ml-2 overflow-hidden">
               <img
